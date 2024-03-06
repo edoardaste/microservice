@@ -1,8 +1,11 @@
 package com.microsservice.user.controller;
 
 
+import com.microsservice.user.dtos.UsersRecordDTO;
 import com.microsservice.user.models.UsersModel;
 import com.microsservice.user.repositories.UsersRepository;
+import jakarta.validation.Valid;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +37,14 @@ public class UsersController {
 
     }
 
-    @GetMapping("/users/delete/")
+    @PostMapping("/users/record")
+    public ResponseEntity<UsersModel> postUsers(@Valid UsersRecordDTO usersRecord){
+        var usersModel = new UsersModel();
+        BeanUtils.copyProperties(usersRecord, usersModel);
+        return  ResponseEntity.status(HttpStatus.OK).body(usersRepository.save(usersModel));
+
+    }
+    @GetMapping("/users/delete")
     public ResponseEntity<Object> deleteUserById (@PathVariable(value = "id") UUID id){
         Optional<UsersModel> user = usersRepository.findById(id);
         if(user.isEmpty()){
