@@ -1,9 +1,9 @@
-package com.microsservice.user.controller;
+package com.microservice.user.controller;
 
 
-import com.microsservice.user.dtos.UsersRecordDTO;
-import com.microsservice.user.models.UsersModel;
-import com.microsservice.user.repositories.UsersRepository;
+import com.microservice.user.dtos.UsersRecordDTO;
+import com.microservice.user.models.UsersModel;
+import com.microservice.user.repositories.UsersRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +16,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v1/")
+@RequestMapping("api/v1")
 public class UsersController {
+
     @Autowired
     UsersRepository usersRepository;
 
@@ -38,10 +39,20 @@ public class UsersController {
     }
 
     @PostMapping("/users/record")
-    public ResponseEntity<UsersModel> postUsers(@Valid UsersRecordDTO usersRecord){
+    public ResponseEntity<UsersModel> postUsers(@RequestBody UsersRecordDTO usersRecord){
         var usersModel = new UsersModel();
         BeanUtils.copyProperties(usersRecord, usersModel);
-        return  ResponseEntity.status(HttpStatus.OK).body(usersRepository.save(usersModel));
+        return  ResponseEntity.status(HttpStatus.CREATED).body(usersRepository.save(usersModel));
+
+    }
+
+    @PostMapping("/users/update/{id}")
+    public ResponseEntity<Object> updateUserById(@PathVariable(value="id") UUID id, @RequestBody UsersModel usersModel){
+        Optional<UsersModel> user = usersRepository.findById(id);
+        if(user.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(usersRepository.save(usersModel));
 
     }
     @GetMapping("/users/delete")

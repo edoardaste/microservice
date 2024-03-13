@@ -1,4 +1,4 @@
-package com.microsservice.user.dtos;
+package com.microservice.user.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

@@ -1,4 +1,4 @@
-package com.microsservice.user.models;
+package com.microservice.user.models;
 
 import jakarta.persistence.*;
 
@@ -9,22 +9,17 @@ import java.util.UUID;
 @Table(name = "users")
 public class UsersModel implements Serializable {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-
     private String name;
     private String address;
-
 
     public void setId(UUID id) {
         this.id = id;
     }
 
-    public UUID getId() {
-        return id;
-    }
+    public UUID getId() { return id; }
 
     public String getName() {
         return name;
