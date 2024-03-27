@@ -2,29 +2,19 @@ package com.microservice.user.models;
 
 import jakarta.persistence.*;
 
-import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
-@Table(name = "users")
-public class UsersModel implements Serializable {
-
+@Table(name="patients")
+public class PatientsModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String name;
     private String address;
-    private String function;
-
-    public String getFunction() {
-        return function;
-    }
-
-    public void setFunction(String function) {
-        this.function = function;
-    }
-
-    private Integer phoneNumber;
+    private String phoneNumber;
+    private String email;
+    private String cpf;
 
     public UUID getId() {
         return id;
@@ -47,17 +37,30 @@ public class UsersModel implements Serializable {
     }
 
     public void setAddress(String address) {
-
         this.address = address;
     }
 
-    public Integer getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getEmail() {
+        return email;
+    }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
 }

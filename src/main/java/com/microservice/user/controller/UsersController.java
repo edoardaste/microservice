@@ -2,9 +2,8 @@ package com.microservice.user.controller;
 
 
 import com.microservice.user.dtos.UsersRecordDTO;
-import com.microservice.user.models.UsersModel;
+import com.microservice.user.models.*;
 import com.microservice.user.repositories.UsersRepository;
-import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
