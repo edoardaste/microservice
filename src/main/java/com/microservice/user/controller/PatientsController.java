@@ -1,7 +1,5 @@
 package com.microservice.user.controller;
 
-
-import com.microservice.user.dtos.PatientsRecordDTO;
 import com.microservice.user.models.PatientsModel;
 import com.microservice.user.repositories.PatientsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
