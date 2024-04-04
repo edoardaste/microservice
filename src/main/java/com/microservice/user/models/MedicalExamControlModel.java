@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name="medical_examination_control")
-public class MedicalExamControlRecordModel {
+public class MedicalExamControlModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;

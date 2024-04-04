@@ -1,8 +1,7 @@
 package com.microservice.user.controller;
 
-import com.microservice.user.dtos.MedicalExamControlDTO;
-import com.microservice.user.models.MedicalExamControlRecordModel;
-import com.microservice.user.models.UsersModel;
+import com.microservice.user.dtos.MedicalExamControlRecordDTO;
+import com.microservice.user.models.MedicalExamControlModel;
 import com.microservice.user.repositories.MedicalExamRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +21,13 @@ public class MedicalExamController {
     MedicalExamRepository medicalExamRepository;
 
     @GetMapping("/medicalExam/")
-    public ResponseEntity<List<MedicalExamControlRecordModel>> getAllMedicalExams(){
+    public ResponseEntity<List<MedicalExamControlModel>> getAllMedicalExams(){
         return ResponseEntity.status(HttpStatus.OK).body(medicalExamRepository.findAll());
     }
 
     @GetMapping("/medicalExam/{id}")
     public ResponseEntity<Object> getMedicalExamsById(@PathVariable(value="id") UUID id){
-        Optional<MedicalExamControlRecordModel> examControl = medicalExamRepository.findById(id);
+        Optional<MedicalExamControlModel> examControl = medicalExamRepository.findById(id);
         if(examControl.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Medical Exam not found!");
         }
@@ -37,9 +36,9 @@ public class MedicalExamController {
     }
 
     @PostMapping("/medicalExam/record")
-    private ResponseEntity<MedicalExamControlRecordModel> recordMedicalExam(@RequestBody MedicalExamControlDTO
+    private ResponseEntity<MedicalExamControlModel> recordMedicalExam(@RequestBody MedicalExamControlRecordDTO
                                                                                   medicalExamControlDTO){
-        var examModel = new MedicalExamControlRecordModel();
+        var examModel = new MedicalExamControlModel();
         BeanUtils.copyProperties(examModel, medicalExamControlDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(medicalExamRepository.save(examModel));
 
@@ -47,7 +46,7 @@ public class MedicalExamController {
 
     @GetMapping("/medicalExam/delete")
     public ResponseEntity<Object> deleteUserById (@PathVariable(value = "id") UUID id){
-        Optional<MedicalExamControlRecordModel> medControl = medicalExamRepository.findById(id);
+        Optional<MedicalExamControlModel> medControl = medicalExamRepository.findById(id);
         if(medControl.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
